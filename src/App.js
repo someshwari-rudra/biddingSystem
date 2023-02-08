@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/Header";
+import UserBid from "./screens/UserBid";
 
 function App() {
+  const initailState = {
+    users: [
+      {
+        allInputs: {
+          name: "",
+          inputValue: [],
+        },
+      },
+    ],
+  };
+
+  const { users } = initailState;
+  const { allInputs } = users[0];
+  console.log(allInputs);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <UserBid />
     </div>
   );
 }
