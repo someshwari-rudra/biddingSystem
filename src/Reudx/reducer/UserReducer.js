@@ -4,6 +4,8 @@ const initialState = {
   users: [],
   userNames: [],
   name: "",
+  inputValues: [],
+  AllUserValues : [],
   totalUserGenerated: 0,
 };
 export const userReducer = (state = initialState, action) => {
@@ -16,6 +18,17 @@ export const userReducer = (state = initialState, action) => {
         users: state.totalUserGenerated < 6 && [action.payload],
         totalUserGenerated:
           state.totalUserGenerated < 6 && state.totalUserGenerated + 1,
+      };
+    case GENERATE_USER.RESET_INPUT_VALUE:
+      return {
+        ...state,
+        inputValues: [],
+        AllUserValues: [...state.AllUserValues, action.payload],
+      };
+    case GENERATE_USER.FORM_SUBMIT:
+      return {
+        ...state,
+        inputValues: [...state.inputValues, action.payload],
       };
     default:
       return state;

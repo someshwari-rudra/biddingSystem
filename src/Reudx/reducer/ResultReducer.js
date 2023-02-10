@@ -1,11 +1,8 @@
 import { RESULT } from "../actions/ActionTypes";
 
 const initailState = {
-  allUsers:[],
-  users: {
-    name: "",
-    inputValue: [],
-  },
+  userName: "",
+  InputValue:""
 };
 
 export const ResultReducer = (state = initailState, action) => {
@@ -13,8 +10,8 @@ export const ResultReducer = (state = initailState, action) => {
     case RESULT.ADD_RESULT:
       return {
         ...state,
-        allUsers:[...state.allUsers, action.payload],
-        users: [...state.users, ...state.users],
+        userName: action.userName,
+        InputValue: action.inputValue,
       };
     default:
       return state;

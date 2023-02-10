@@ -1,27 +1,31 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
+import Result from "./components/Result";
 import UserBid from "./screens/UserBid";
 
 function App() {
-  const initailState = {
-    users: [
-      {
-        allInputs: {
-          name: "",
-          inputValue: [],
-        },
-      },
-    ],
-  };
+ 
 
-  const { users } = initailState;
-  const { allInputs } = users[0];
-  console.log(allInputs);
+ 
+
+ 
+  // useEffect(() => {
+  //   console.log(lowestUniqueValue(AllInputs));
+  //   const value = lowestUniqueValue(AllInputs);
+  //   console.log(findKeyByValue(AllInputs, value));
+  //   findKeyByValue(AllInputs, value);
+  // }, [AllInputs]);
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <UserBid />
-    </div>
+      <Routes>
+        <Route path="/" element={<UserBid />} />
+        <Route path="/result" element={<Result />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

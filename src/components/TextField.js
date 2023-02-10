@@ -1,8 +1,12 @@
 import classNames from "classnames";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const TextField = (props) => {
   const { name, type, errors, register } = props;
+  const inputValue = useSelector((state) => state.userReducer.inputValues);
+  const UserInputValue = inputValue.flat(1)
+  console.log(UserInputValue)
 
   return (
     <>
@@ -17,6 +21,13 @@ const TextField = (props) => {
           pattern: {
             value: /^[1-9]\d{0,6}$/,
           },
+          validate: {
+            value: (value) => {
+              if (UserInputValue.includes(value)) {
+                return false;
+              }
+            },
+          },
         })}
       />
       {errors?.[name]?.type === "required" && (
@@ -26,6 +37,9 @@ const TextField = (props) => {
         <p className="text-danger">
           enter valid number between 1 to 7digit long..!
         </p>
+      )}
+      {errors[name]?.type === "value" && (
+        <p className="text-danger">Value allready taken by you...!</p>
       )}
     </>
   );

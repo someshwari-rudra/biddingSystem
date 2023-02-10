@@ -6,6 +6,7 @@ const UserBid = () => {
   console.log('users :>> ', users);
   return (
     <div>
+    
       {users.map((component, index) => (
         <Fragment key={index}>{component}</Fragment>
       ))}

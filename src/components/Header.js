@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container, Navbar, NavbarBrand, NavLink } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { GenerateCoins } from "../Reudx/actions/coins";
 import { generateUser } from "../Reudx/actions/GenerateUser";
+import { resultAction } from "../Reudx/actions/ResultAction";
 import { generateName } from "../utils/RandomNames";
 import { getRandomNumber } from "../utils/randomNumber";
 
@@ -13,7 +15,7 @@ const Header = () => {
     (state) => state.userReducer.totalUserGenerated
   );
   const coinsGenerated = useSelector((state) => state.coinReducer.totalCoins);
-  // const coinsGenerated = useSelector((state) => state.generateCoinsReducer.totalCoins)
+   const AllInputs = useSelector((state) => state.userReducer.AllUserValues);
 
   const name = generateName();
   const coins = getRandomNumber();
@@ -24,6 +26,9 @@ const Header = () => {
   const generateCoins = () => {
     dispatch(GenerateCoins(coins));
   };
+  const getResult = () => {
+    dispatch(resultAction(AllInputs));
+  }
 
   useEffect(() => {
     if (totalUsers === 6) {
@@ -39,17 +44,23 @@ const Header = () => {
         </NavbarBrand>
         <NavLink className="text-white">Total coins:{coinsGenerated}</NavLink>
         <div>
-          <button
-            className="btn btn-warning mx-2"
-            disabled={disable}
-            onClick={handleClick}
-          >
-            Generate User
-          </button>
+          <Link to="/">
+            <button
+              className="btn btn-warning mx-2"
+              disabled={disable}
+              onClick={handleClick}
+            >
+              Generate User
+            </button>
+          </Link>
           <button className="btn btn-warning mx-2" onClick={generateCoins}>
             Generate Coins
           </button>
-          <button className="btn btn-warning mx-2">Result</button>
+          <Link to="/result">
+            <button className="btn btn-warning mx-2" onClick={getResult}>
+              Result
+            </button>
+          </Link>
         </div>
       </Container>
     </Navbar>

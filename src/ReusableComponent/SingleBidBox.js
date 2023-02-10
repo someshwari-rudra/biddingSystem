@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TextField from "../components/TextField";
 import { inputFields } from "../Data/inputFields";
+import { fromSubmit } from "../Reudx/actions/FormSubmit";
 
 const SingleBidBox = ({ price, name }) => {
   const form2 = useRef();
@@ -12,19 +13,20 @@ const SingleBidBox = ({ price, name }) => {
     formState: { errors },
     reset,
   } = useForm();
+
+  const dispatch = useDispatch();
   const onSubmit = (data) => {
     console.log(JSON.stringify(data, null, 9));
+    dispatch(fromSubmit(Object.values(data)));
     reset();
   };
-
-  const AllUserNames = useSelector((state) => state.userReducer.userNames);
   const totalCoins = useSelector((state) => state.coinReducer.totalCoins);
+  const AllUserValues = useSelector((state) => state.userReducer.AllUserValues);
+  console.log("AllUserValues", AllUserValues);
 
   useEffect(() => {
-    if (AllUserNames.includes(name)) {
-      reset();
-    }
-  }, [AllUserNames, name, reset]);
+    reset();
+  }, [name, reset]);
 
   return (
     <div className="col-md-4">
