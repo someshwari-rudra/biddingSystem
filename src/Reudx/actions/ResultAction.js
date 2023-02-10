@@ -4,7 +4,6 @@ import { GENERATE_USER, RESULT } from "./ActionTypes";
 
 export const resultAction = (AllInputs) => (dispatch, getState) => {
   const state = getState();
-
   const inputValues = state.userReducer.inputValues;
   const name = state.userReducer.name;
   dispatch({
