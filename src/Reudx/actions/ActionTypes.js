@@ -17,9 +17,3 @@ export const GENERATE_USER = {
 export const RESULT = {
   ADD_RESULT: "ADD_RESULT",
 };
-
-export const CLASS_NAMES = {
-  ENABLE: "ENABLE",
-  FREE: "FREE",
-  DISPLAY_OVERLAY: "DISPLAY_OVERLAY",
-};

@@ -61,8 +61,7 @@ const SingleBidBox = ({ price, name }) => {
             action=""
             className="row p-2 form"
             ref={form2}
-            onSubmit={handleSubmit((data) => onSubmit(data, price))}
-          >
+            onSubmit={handleSubmit((data) => onSubmit(data, price))}>
             {inputFields.map((input) => {
               return (
                 <div className="col-md-6" key={input.id}>

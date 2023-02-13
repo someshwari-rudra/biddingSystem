@@ -1,5 +1,5 @@
 import Bidding from "../../ReusableComponent/Bidding";
-import { CLASS_NAMES, COINS, GENERATE_USER } from "./ActionTypes";
+import { COINS, GENERATE_USER } from "./ActionTypes";
 
 export const generateUser = (userName) => (dispatch, getState) => {
   const state = getState();
@@ -18,8 +18,4 @@ export const generateUser = (userName) => (dispatch, getState) => {
     type: GENERATE_USER.RESET_INPUT_VALUE,
     payload: { [name]: inputValues.flat(1) },
   });
-  dispatch({
-    type: CLASS_NAMES.FREE,
-    payload:"free"
-  })
 };
