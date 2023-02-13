@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 const UserBid = () => {
   const users = useSelector((state) => state.userReducer.users);
-  console.log('users :>> ', users);
   return (
     <div>
     

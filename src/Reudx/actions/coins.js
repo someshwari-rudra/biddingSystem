@@ -6,3 +6,9 @@ export const GenerateCoins = (number) => {
        payload: number,
      };
 }
+export const RedeemCoins = (data) => {
+  return {
+    type: COINS.REDEEM_COINS,
+    payload:data
+  }
+}

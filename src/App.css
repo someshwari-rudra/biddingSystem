@@ -9,16 +9,28 @@
 }
 
 .enable {
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  top: 22%;
+  left: 0%;
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.free {
   border-radius: 20px;
   position: relative;
   background: rgb(211, 220, 255) !important;
 }
 
-.disableOverlay {
+.disableOverlay{
   position: absolute;
   height: 100%;
   width: 100%;
   top: 0%;
   left: 0%;
   background: rgba(255, 255, 255, 0.5);
+}
+.redeemBtn{
+  background-color: rgb(165, 165, 229) !important;
 }

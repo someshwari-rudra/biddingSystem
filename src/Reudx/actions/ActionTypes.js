@@ -2,10 +2,10 @@ export const ON_CHANGE = "ON_CHANGE";
 export const ON_SUBMIT = "ON_SUBMIT";
 export const ON_CLEAR = "ON_CLEAR";
 
-
 export const COINS = {
-    GENERATE_COINS: "GENERATE_COINS",
-    RESET_COINS: "RESET_COINS"
+  GENERATE_COINS: "GENERATE_COINS",
+  RESET_COINS: "RESET_COINS",
+  REDEEM_COINS:"REDEEM_COINS"
 };
 
 export const GENERATE_USER = {
@@ -15,6 +15,11 @@ export const GENERATE_USER = {
 };
 
 export const RESULT = {
-    ADD_RESULT: "ADD_RESULT",
-    
+  ADD_RESULT: "ADD_RESULT",
+};
+
+export const CLASS_NAMES = {
+  ENABLE: "ENABLE",
+  FREE: "FREE",
+  DISPLAY_OVERLAY: "DISPLAY_OVERLAY",
 };

@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 const TextField = (props) => {
   const { name, type, errors, register } = props;
   const inputValue = useSelector((state) => state.userReducer.inputValues);
-  const UserInputValue = inputValue.flat(1)
-  console.log(UserInputValue)
+  const UserInputValue = inputValue.flat(1);
 
   return (
     <>

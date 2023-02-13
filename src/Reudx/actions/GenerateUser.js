@@ -1,12 +1,10 @@
 import Bidding from "../../ReusableComponent/Bidding";
-import { COINS, GENERATE_USER } from "./ActionTypes";
+import { CLASS_NAMES, COINS, GENERATE_USER } from "./ActionTypes";
 
 export const generateUser = (userName) => (dispatch, getState) => {
   const state = getState();
   const inputValues = state.userReducer.inputValues;
   const name = state.userReducer.name;
-  console.log("inputValues", inputValues);
-
   dispatch({
     type: COINS.RESET_COINS,
     payload: 0,
@@ -20,4 +18,8 @@ export const generateUser = (userName) => (dispatch, getState) => {
     type: GENERATE_USER.RESET_INPUT_VALUE,
     payload: { [name]: inputValues.flat(1) },
   });
+  dispatch({
+    type: CLASS_NAMES.FREE,
+    payload:"free"
+  })
 };

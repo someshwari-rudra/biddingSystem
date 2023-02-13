@@ -9,13 +9,15 @@ import { generateName } from "../utils/RandomNames";
 import { getRandomNumber } from "../utils/randomNumber";
 
 const Header = () => {
-  const [disable, setDisable] = useState(false);
+  const [disableUser, setDisableuser] = useState(false);
   const dispatch = useDispatch();
   const totalUsers = useSelector(
     (state) => state.userReducer.totalUserGenerated
   );
   const coinsGenerated = useSelector((state) => state.coinReducer.totalCoins);
-   const AllInputs = useSelector((state) => state.userReducer.AllUserValues);
+  const AllInputs = useSelector((state) => state.userReducer.AllUserValues);
+   const totalCoins = useSelector((state) => state.coinReducer.coins);
+   const coinsDisable = useSelector((state) => state.coinReducer.disable);
 
   const name = generateName();
   const coins = getRandomNumber();
@@ -31,10 +33,12 @@ const Header = () => {
   }
 
   useEffect(() => {
+    
     if (totalUsers === 6) {
-      setDisable(true);
+      setDisableuser(true);
     }
-  }, [totalUsers]);
+    
+  }, [totalUsers, totalCoins]);
 
   return (
     <Navbar className="bg-dark">
@@ -47,13 +51,17 @@ const Header = () => {
           <Link to="/">
             <button
               className="btn btn-warning mx-2"
-              disabled={disable}
+              disabled={disableUser}
               onClick={handleClick}
             >
               Generate User
             </button>
           </Link>
-          <button className="btn btn-warning mx-2" onClick={generateCoins}>
+          <button
+            className="btn btn-warning mx-2"
+            disabled={coinsDisable}
+            onClick={generateCoins}
+          >
             Generate Coins
           </button>
           <Link to="/result">
