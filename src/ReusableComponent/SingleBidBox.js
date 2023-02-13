@@ -3,18 +3,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import TextField from "../components/TextField";
 import { inputFields } from "../Data/inputFields";
-import {
-  classDisableOverlay,
-  classEnable,
-  classFree,
-} from "../Reudx/actions/classActions";
 import { RedeemCoins } from "../Reudx/actions/coins";
 import { fromSubmit } from "../Reudx/actions/FormSubmit";
 
 const SingleBidBox = ({ price, name }) => {
   const [enable, setEnable] = useState("enable");
   const [disableOverlay, setdisableOverlay] = useState("disableOverlay");
-  const Free = useSelector((state) => state.class_Name.Free);
+  const [Free, setFree] = useState("free");
   const form2 = useRef();
   const {
     register,
@@ -24,37 +19,28 @@ const SingleBidBox = ({ price, name }) => {
   } = useForm();
 
   const dispatch = useDispatch();
-  const onSubmit = (data, price, e) => {
+  const onSubmit = (data, price) => {
     dispatch(fromSubmit(Object.values(data)));
     if (price === 0) {
-      dispatch(classFree());
+      setFree("disableOverlay");
     } else {
       setdisableOverlay("disableOverlay");
-      // dispatch(classDisableOverlay("disableOverlay"));
     }
     setEnable("enable");
     reset();
   };
   const totalCoins = useSelector((state) => state.coinReducer.totalCoins);
-
-  // const enable = useSelector((state) => state.class_Name.enable);
-  // console.log("enable :>> ", enable);
-  // const disableOverlay = useSelector(
-  //   (state) => state.class_Name.displayOverlay
-  // );
-  // console.log("disableOverlay :>> ", disableOverlay);
-
   const handleRedeem = (price) => {
     dispatch(RedeemCoins(price));
-
-    // dispatch(classEnable("free"));
-    // dispatch(classDisableOverlay("free"));
     setEnable("free");
     setdisableOverlay("free");
   };
 
   useEffect(() => {
     reset();
+    setFree("Free")
+    setEnable("enable")
+    setdisableOverlay("disableOverlay");
   }, [name, reset]);
 
   return (
@@ -66,8 +52,7 @@ const SingleBidBox = ({ price, name }) => {
             {price !== 0 && (
               <button
                 className="btn redeemBtn"
-                onClick={() => handleRedeem(price)}
-              >
+                onClick={() => handleRedeem(price)}>
                 redeem
               </button>
             )}
@@ -76,7 +61,7 @@ const SingleBidBox = ({ price, name }) => {
             action=""
             className="row p-2 form"
             ref={form2}
-            onSubmit={handleSubmit((data, e) => onSubmit(data, price, e))}
+            onSubmit={handleSubmit((data) => onSubmit(data, price))}
           >
             {inputFields.map((input) => {
               return (
