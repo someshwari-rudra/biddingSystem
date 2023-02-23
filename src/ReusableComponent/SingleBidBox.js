@@ -19,8 +19,8 @@ const SingleBidBox = ({ price, name }) => {
   } = useForm();
 
   const dispatch = useDispatch();
-  const onSubmit = (data, price) => {
-    dispatch(fromSubmit(Object.values(data)));
+  const onSubmit = (data, price,name) => {
+    dispatch(fromSubmit(Object.values(data),name));
     if (price === 0) {
       setFree("disableOverlay");
     } else {
@@ -61,7 +61,7 @@ const SingleBidBox = ({ price, name }) => {
             action=""
             className="row p-2 form"
             ref={form2}
-            onSubmit={handleSubmit((data) => onSubmit(data, price))}>
+            onSubmit={handleSubmit((data) => onSubmit(data, price,name))}>
             {inputFields.map((input) => {
               return (
                 <div className="col-md-6" key={input.id}>

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Container, Navbar, NavbarBrand, NavLink } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { GENERATE_USER, RESULT } from "../Reudx/actions/ActionTypes";
 import { GenerateCoins } from "../Reudx/actions/coins";
 import { generateUser } from "../Reudx/actions/GenerateUser";
-import { resultAction } from "../Reudx/actions/ResultAction";
+import { resultAction,  resultDeclaredAction } from "../Reudx/actions/ResultAction";
 import { generateName } from "../utils/RandomNames";
 import { getRandomNumber } from "../utils/randomNumber";
 
@@ -16,28 +17,40 @@ const Header = () => {
   );
   const coinsGenerated = useSelector((state) => state.coinReducer.totalCoins);
   const AllInputs = useSelector((state) => state.userReducer.AllUserValues);
-   const totalCoins = useSelector((state) => state.coinReducer.coins);
-   const coinsDisable = useSelector((state) => state.coinReducer.disable);
+  const userName = useSelector((state) => state.userReducer.userNames);
+  const totalCoins = useSelector((state) => state.coinReducer.coins);
+  const nextPrice = useSelector((state) => state.coinReducer.nextPrice);
+  const coinsDisable = useSelector((state) => state.coinReducer.disable);
+  const { resultDeclared } = useSelector((state) => state.resultReducer);
 
+  console.log("allInputs :>> ", AllInputs);
+  console.log("nextPrice :>> ", nextPrice);
   const name = generateName();
   const coins = getRandomNumber();
 
   const handleClick = () => {
-    dispatch(generateUser(name));
+    if (resultDeclared) {
+      console.log("called")
+      dispatch({ type: GENERATE_USER.RESET_USER_VALUES })
+      dispatch({type: RESULT.CLEAR_RESULT})
+    } dispatch(generateUser(name));
+    dispatch(resultDeclaredAction(false));
   };
   const generateCoins = () => {
+    if (totalCoins.length === 2) {
+      dispatch({ type: GENERATE_USER.RESET_ACTIVE_SLIDE_INDEX });
+    }
     dispatch(GenerateCoins(coins));
   };
   const getResult = () => {
     dispatch(resultAction(AllInputs));
-  }
+    dispatch(resultDeclaredAction(true));
+  };
 
   useEffect(() => {
-    
     if (totalUsers === 6) {
       setDisableuser(true);
     }
-    
   }, [totalUsers, totalCoins]);
 
   return (
@@ -59,13 +72,23 @@ const Header = () => {
           </Link>
           <button
             className="btn btn-warning mx-2"
-            disabled={coinsDisable}
+            disabled={
+              userName.length === 0
+                ? true
+                : nextPrice === 0
+                ? true
+                : coinsDisable
+            }
             onClick={generateCoins}
           >
             Generate Coins
           </button>
           <Link to="/result">
-            <button className="btn btn-warning mx-2" onClick={getResult}>
+            <button
+              className="btn btn-warning mx-2"
+              onClick={getResult}
+              disabled={userName.length < 2 ? true : false}
+            >
               Result
             </button>
           </Link>

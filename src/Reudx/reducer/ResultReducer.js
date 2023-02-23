@@ -2,7 +2,8 @@ import { RESULT } from "../actions/ActionTypes";
 
 const initailState = {
   userName: "",
-  InputValue:""
+  InputValue: "",
+  resultDeclared: false,
 };
 
 export const ResultReducer = (state = initailState, action) => {
@@ -13,6 +14,13 @@ export const ResultReducer = (state = initailState, action) => {
         userName: action.userName,
         InputValue: action.inputValue,
       };
+    case RESULT.IS_RESULT_DECLARED:
+      return {
+        ...state,
+        resultDeclared: action.payload,
+      };
+    case RESULT.CLEAR_RESULT:
+      return initailState
     default:
       return state;
   }

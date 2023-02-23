@@ -34,3 +34,16 @@
 .redeemBtn{
   background-color: rgb(165, 165, 229) !important;
 }
+
+
+
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

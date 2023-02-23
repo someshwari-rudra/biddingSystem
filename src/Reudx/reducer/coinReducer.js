@@ -3,11 +3,14 @@ import { COINS } from "../actions/ActionTypes";
 const initailValue = {
   coins: [],
   totalCoins: 0,
+  nextPrice: 0,
+  currentPrice: 0,
   disable: false,
 };
 export const CoinsReducer = (state = initailValue, { type, payload }) => {
   switch (type) {
     case COINS.GENERATE_COINS:
+      console.log(payload.disable);
       return {
         ...state,
         coins: [...state.coins, state.coins + payload],
@@ -17,7 +20,7 @@ export const CoinsReducer = (state = initailValue, { type, payload }) => {
     case COINS.RESET_COINS:
       return {
         ...state,
-        coins:[],
+        coins: [],
         totalCoins: payload,
         disable: false,
       };
@@ -27,7 +30,16 @@ export const CoinsReducer = (state = initailValue, { type, payload }) => {
         totalCoins: state.totalCoins - payload,
         disable: state.coins.length === 2 ? true : false,
       };
-
+    case COINS.NEXT_PRICE:
+      return {
+        ...state,
+        nextPrice: payload,
+      };
+    case COINS.CURRENT_PRICE:
+      return {
+        ...state,
+        currentPrice:payload
+      };
     default:
       return state;
   }

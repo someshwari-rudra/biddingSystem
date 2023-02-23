@@ -18,3 +18,10 @@ export const resultAction = (AllInputs) => (dispatch, getState) => {
     inputValue: value,
   });
 };
+
+export const resultDeclaredAction = (bool) => {
+  return {
+    type: RESULT.IS_RESULT_DECLARED,
+    payload: bool
+  }
+}
