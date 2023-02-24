@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/biddingSystem/static/css/main.cca04fa1.css",
+    "main.js": "/biddingSystem/static/js/main.3f437fb0.js",
+    "index.html": "/biddingSystem/index.html",
+    "main.cca04fa1.css.map": "/biddingSystem/static/css/main.cca04fa1.css.map",
+    "main.3f437fb0.js.map": "/biddingSystem/static/js/main.3f437fb0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cca04fa1.css",
+    "static/js/main.3f437fb0.js"
+  ]
+}
