@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from 'react-redux';
-import { store } from './Reudx/store';
+// import { store, persistor } from "./Reudx/store";
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './Reudx/store';
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { GENERATE_USER, RESULT } from "../Reudx/actions/ActionTypes";
 import { GenerateCoins } from "../Reudx/actions/coins";
 import { generateUser } from "../Reudx/actions/GenerateUser";
-import { resultAction,  resultDeclaredAction } from "../Reudx/actions/ResultAction";
+import {
+  resultAction,
+  resultDeclaredAction,
+} from "../Reudx/actions/ResultAction";
+import ButtonMapping from "../ReusableComponent/ButtonMapping";
 import { generateName } from "../utils/RandomNames";
 import { getRandomNumber } from "../utils/randomNumber";
 
@@ -30,10 +34,11 @@ const Header = () => {
 
   const handleClick = () => {
     if (resultDeclared) {
-      console.log("called")
-      dispatch({ type: GENERATE_USER.RESET_USER_VALUES })
-      dispatch({type: RESULT.CLEAR_RESULT})
-    } dispatch(generateUser(name));
+      console.log("called");
+      dispatch({ type: GENERATE_USER.RESET_USER_VALUES });
+      dispatch({ type: RESULT.CLEAR_RESULT });
+    }
+    dispatch(generateUser(name));
     dispatch(resultDeclaredAction(false));
   };
   const generateCoins = () => {
@@ -53,6 +58,31 @@ const Header = () => {
     }
   }, [totalUsers, totalCoins]);
 
+  const ButtonAttribute = [
+    {
+      value: "Generate User",
+      typeOf: "generate_user",
+      type: "button",
+      disabled: disableUser,
+      onClick: () => handleClick(),
+    },
+    {
+      value: "Generate Coins",
+      typeOf: "generate_coins",
+      disabled:
+        userName.length === 0 ? true : nextPrice === 0 ? true : coinsDisable,
+      type: "button",
+      onClick: () => generateCoins(),
+    },
+    {
+      value: "Result",
+      typeOf: "result",
+      type: "submit",
+      disabled: userName.length < 2 ? true : false,
+      onClick: (id) => getResult(),
+    },
+  ];
+
   return (
     <Navbar className="bg-dark">
       <Container>
@@ -61,37 +91,7 @@ const Header = () => {
         </NavbarBrand>
         <NavLink className="text-white">Total coins:{coinsGenerated}</NavLink>
         <div>
-          <Link to="/">
-            <button
-              className="btn btn-warning mx-2"
-              disabled={disableUser}
-              onClick={handleClick}
-            >
-              Generate User
-            </button>
-          </Link>
-          <button
-            className="btn btn-warning mx-2"
-            disabled={
-              userName.length === 0
-                ? true
-                : nextPrice === 0
-                ? true
-                : coinsDisable
-            }
-            onClick={generateCoins}
-          >
-            Generate Coins
-          </button>
-          <Link to="/result">
-            <button
-              className="btn btn-warning mx-2"
-              onClick={getResult}
-              disabled={userName.length < 2 ? true : false}
-            >
-              Result
-            </button>
-          </Link>
+          <ButtonMapping buttonAttributes={ButtonAttribute} />
         </div>
       </Container>
     </Navbar>

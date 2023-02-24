@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper/core";
@@ -10,19 +10,13 @@ import {
   changeActiveClassName,
   setActiveIndex,
 } from "../Reudx/actions/GenerateUser";
-import {
-  currentPrice,
-  RedeemCoins,
-  setNextPrice,
-} from "../Reudx/actions/coins";
+import { RedeemCoins, setNextPrice } from "../Reudx/actions/coins";
 
 SwiperCore.use([Pagination]);
-const Bidding = () => {
-  const name = useSelector((state) => state.userReducer.name);
+const Bidding = ({ name }) => {
   const totalCoins = useSelector((state) => state.coinReducer.totalCoins);
 
   const price = [0, 500, 1000, 2000, 3000, 4000];
-  // const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const dispatch = useDispatch();
   const { activeSlideIndex } = useSelector((state) => state.userReducer);
   const { nextPrice } = useSelector((state) => state.coinReducer);
@@ -34,6 +28,7 @@ const Bidding = () => {
     dispatch(changeActiveClassName("disabled"));
     dispatch(RedeemCoins(current_price));
     dispatch(setNextPrice(next_price));
+
     if (totalCoins > price) {
       dispatch(changeActiveClassName("Free"));
       dispatch(setActiveIndex(activeSlideIndex + 1));
@@ -79,7 +74,6 @@ const Bidding = () => {
                     onSubmited={() =>
                       handleFormSubmit(nextPrice, current_price)
                     }
-                    // setActiveSlideIndex={setActiveSlideIndex}
                     isDisabled={index > activeSlideIndex}
                   />
                 );
@@ -89,21 +83,6 @@ const Bidding = () => {
         </SwiperSlide>
       </Swiper>
     </div>
-    // <div className="container">
-    //   <h3>{name}</h3>
-    //   <div className="row g-2">
-    //     {price.map((price, index) => {
-    //       return (
-    //         <SingleBidBox
-    //           key={price}
-    //           price={price}
-    //           name={name}
-    //           bidBoxId={index}
-    //         />
-    //       );
-    //     })}
-    //   </div>
-    // </div>
   );
 };
 

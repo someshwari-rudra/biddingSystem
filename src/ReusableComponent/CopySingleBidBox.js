@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TextField from "../components/TextField";
 import { inputFields } from "../Data/inputFields";
 import { fromSubmit } from "../Reudx/actions/FormSubmit";
-import { changeActiveClassName } from "../Reudx/actions/GenerateUser";
-import { ClearInputValues, OnChange } from "../Reudx/actions/OnChange";
-// import { changeActiveClassName } from "../Reudx/actions/GenerateUser";
+import { OnChange } from "../Reudx/actions/OnChange";
 
 const CopySingleBidBox = ({
   price,
@@ -25,7 +23,6 @@ const CopySingleBidBox = ({
   } = useForm();
 
   const dispatch = useDispatch();
-  const totalCoins = useSelector((state) => state.coinReducer.totalCoins);
   const activeClass = useSelector((state) => state.userReducer.activeClass);
 
   const onSubmit = (data, price, name) => {
@@ -48,9 +45,6 @@ const CopySingleBidBox = ({
     const value = e.target.value;
     dispatch(OnChange(name, value));
   };
-
-  // console.log("activeClass :>> ", activeClass);
-  // console.log("isActive :>> ", isActive);
 
   return (
     <div

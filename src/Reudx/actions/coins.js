@@ -19,10 +19,3 @@ export const setNextPrice = (price) => {
     payload: price,
   };
 };
-
-// export const currentPrice = (price) => {
-//   return {
-//     type: COINS.CURRENT_PRICE,
-//     payload: price,
-//   };
-// };

@@ -10,38 +10,17 @@ const TextField = (props) => {
   const onChangeValues = useSelector((state) => state.onChnageReducer);
 
   const numValues = Object.keys(onChangeValues).reduce((acc, key) => {
-    acc[key] = parseFloat(onChangeValues[key]);
+    acc[key] = parseInt(onChangeValues[key]);
     return acc;
   }, {});
 
-  const values = Object.values(onChangeValues);
-  // for (let i = 0; i < values.length; i++){
-  //   UserInputValue.push(values[i])
-  // }
-  // console.log('UserInputValue :>> ', UserInputValue);
+  const values = Object.values(numValues);
+  const isUniqueValue = (value, allValues) => {
+    const isDuplicate = Object.values(allValues).filter((v) => v === value).length > 1;
+    console.log("isDuplicate :>> ", isDuplicate);
+    return !isDuplicate;
+  };
 
-  // const validateDuplicateValue = (value) => {
-  //   // const duplidateValue = Object.keys(onChangeValues).find((key) => {
-  //   //   if (values.includes(onChangeValues[key])) {
-  //   //     return key;
-  //   //   } else {
-  //   //     return null;
-  //   //   }
-  //   // });
-  //   // console.log("duplidateValue :>> ", duplidateValue);
-  //   if (values.includes(value)) {
-  //     return false;
-  //   }
-  // };
-   const validateDuplicateValue = (value) => {
-     const valueArr = Object.values(onChangeValues);
-     console.lg()
-     const isDuplicate = valueArr.some((value, index) => {
-       return valueArr.indexOf(value) !== index;
-     });
-     return !isDuplicate;
-   };
-  console.log('errors[name] :>> ', errors[name]);
   return (
     <>
       <input
@@ -58,12 +37,13 @@ const TextField = (props) => {
           },
           validate: {
             value: (value) => {
-              console.log("value", value);
               if (UserInputValue.includes(value)) {
                 return false;
               }
             },
-            duplicateValue: (value) => validateDuplicateValue(value),
+            duplicateValue: (value) => {
+              return isUniqueValue(parseInt(value), values);
+            },
           },
         })}
       />
@@ -75,12 +55,10 @@ const TextField = (props) => {
           enter valid number between 1 to 7digit long..!
         </p>
       )}
-      {errors[name]?.type === "value" && (
-        <p className="text-danger">Value allready taken by you...!</p>
-      )}
-      {errors[name]?.type === "duplicateValue" && (
-        <p className="text-danger">Value allready taken by you...!</p>
-      )}
+      {errors[name]?.type === "value" ||
+        (errors[name]?.type === "duplicateValue" && (
+          <p className="text-danger">Value allready taken by you...!</p>
+        ))}
     </>
   );
 };

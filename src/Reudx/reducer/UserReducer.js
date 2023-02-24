@@ -1,7 +1,6 @@
 import { GENERATE_USER } from "../actions/ActionTypes";
 
 const initialState = {
-  users: [],
   userNames: [],
   name: "",
   activeClass: "Free",
@@ -16,7 +15,6 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         name: action.name,
         userNames: [...state.userNames, action.name],
-        users: [action.payload],
       };
     case GENERATE_USER.RESET_INPUT_VALUE:
       return {

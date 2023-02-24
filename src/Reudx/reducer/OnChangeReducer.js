@@ -18,10 +18,6 @@ export const OnChangeReducer = (
         ...state,
         [name]: value,
       };
-    case ONCHNAGE.CLEAR_INPUT_VALUES:
-      return {
-        ...initialState,
-      };
     default:
       return state;
   }
